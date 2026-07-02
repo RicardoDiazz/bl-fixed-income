@@ -1,40 +1,200 @@
-# Modelo Black-Litterman Aplicado a Renta Fija (Treasuries)
+======================================================================
 
-Este repositorio contiene una implementación profesional, modular y dinámica del **Modelo Black-Litterman** aplicado a activos de renta fija (ETFs de bonos del tesoro de EE. UU.: SHY, IEF, TLT). 
+PIPELINE PREDICTIVO DE MACHINE LEARNING PARA RENTA FIJA (US TREASURIES)
 
-El proyecto automatiza la descarga de datos históricos reales de mercado, calcula el equilibrio implícito a través de la optimización inversa y ajusta los rendimientos esperados del mercado combinándolos matemáticamente con las opiniones subjetivas del analista (vistas). Finalmente, resuelve la asignación óptima de activos utilizando una optimización de Media-Varianza para maximizar el Ratio de Sharpe.
+======================================================================
 
-## 🚀 Estructura del Proyecto
 
-* src/bl_fixed_income/data_loader.py: Extracción de datos históricos de Yahoo Finance.
-* src/bl_fixed_income/analytics.py: Motor matemático y fórmulas de Black-Litterman.
-* src/bl_fixed_income/allocator.py: Optimizador numérico de portafolios (Max Sharpe).
-* src/bl_fixed_income/main.py: Pipeline principal y punto de ejecución dinámico.
-* settings.toml: Centro de control dinámico del portafolio.
 
-## 🧠 Fundamentos Matemáticos
+Este repositorio contiene una implementacion profesional, modular y 
 
-El modelo combina la información del mercado con las vistas del analista usando las siguientes fórmulas matriciales:
+automatizada de un pipeline de Machine Learning orientado a series de 
 
-1. Rendimientos Implícitos de Equilibrio
-   Pi = delta * Sigma * w_mkt
+tiempo financieras. El objetivo principal es predecir los retornos 
 
-2. Fórmula Maestra de Black-Litterman
-   mu_bl = [ (tau * Sigma)^-1 + P^T * Omega^-1 * P ]^-1 * [ (tau * Sigma)^-1 * Pi + P^T * Omega^-1 * Q ]
+futuros en multiples horizontes temporales utilizando activos de renta 
 
-## ⚙️ Configuración Dinámica (settings.toml)
+fixa (ETFs de bonos del tesoro de EE. UU.: SHY, IEF, TLT).
 
-Toda la configuración del modelo se gestiona de forma centralizada en el archivo settings.toml, donde puedes cambiar los tickers, el periodo de análisis, la tasa libre de riesgo y tus matrices de opiniones (P, Q, Omega) sin tocar el código de los scripts.
 
-## 💻 Requisitos e Instalación
 
-1. Instalar y Sincronizar Dependencias:
-   .\uv sync
+El proyecto gestiona de extremo a extremo la ingesta de datos, el 
 
-2. Ejecutar Pruebas de Consistencia:
-   $env:PYTHONPATH = "src"; .\uv run pytest
+control de calidad, el analisis econometrico de estacionariedad, la 
 
-3. Ejecutar el Modelo y Exportar Reportes:
-   $env:PYTHONPATH = "src"; .\uv run python src/bl_fixed_income/main.py
+ingenieria de variables sin sesgo temporal (anti data-leakage) y la 
 
-Al finalizar la ejecución, el script guardará en la raíz del proyecto un gráfico de barras de alta resolución llamado portfolio_comparison.png.
+visualizacion interactiva para el analisis exploratorio de datos.
+
+
+
+
+
+\----------------------------------------------------------------------
+
+1\. ESTRUCTURA DE ENTREGABLES EN EL REPOSITORIO (SEMANAS 1 - 5)
+
+\----------------------------------------------------------------------
+
+
+
+El repositorio se encuentra estructurado bajo los siguientes modulos de 
+
+codigo de produccion e informes tecnicos institucionales:
+
+
+
+\- src/data/download.py
+
+&#x20; Módulo de ingesta automatizada. Descarga precios historicos de cierre 
+
+&#x20; ajustados directos desde la API de Yahoo Finance.
+
+
+
+\- src/data/clean.py
+
+&#x20; Módulo de preprocesamiento. Sincroniza las fechas del panel, maneja 
+
+&#x20; dias feriados del mercado y ejecuta la imputacion de valores nulos.
+
+
+
+\- src/features/returns.py
+
+&#x20; Módulo de transformacion. Convierte las series de precios continuas 
+
+&#x20; en retornos logaritmicos semanales estabilizados.
+
+
+
+\- src/features/targets.py
+
+&#x20; Módulo de variables objetivo. Construye los targets predictivos a 
+
+&#x20; futuro para los horizontes Q1 (1 semana), Q2 (2 semanas) y Q3 (4 semanas).
+
+
+
+\- src/features/build\_features.py
+
+&#x20; Módulo de ingenieria de variables. Computa rezagos historicos (lags 
+
+&#x20; 1, 2 y 3) para cada ETF y congela la matriz final para el modelo.
+
+
+
+\- dashboard/app.py
+
+&#x20; Aplicacion web interactiva desarrollada en Streamlit. Provee el 
+
+&#x20; Analisis Exploratorio de Datos (EDA) en 5 secciones completas.
+
+
+
+\- tests/
+
+&#x20; Suite de pruebas de control de calidad del software:
+
+&#x20; \* test\_data.py: Validacion de la correcta ingesta y limpieza de datos.
+
+&#x20; \* test\_targets.py: Verificacion de dimensiones y calculo de targets.
+
+&#x20; \* test\_leakage.py: Prueba matematica estricta contra la filtracion temporal.
+
+
+
+\- configs/
+
+&#x20; Informes tecnicos de soporte metodologico para los evaluadores:
+
+&#x20; \* data\_decisions.md: Justificacion de la frecuencia y limpieza de datos.
+
+&#x20; \* targets\_analysis.md: Reporte del Test ADF con p-values de 0.0000.
+
+
+
+
+
+\----------------------------------------------------------------------
+
+2\. FUNDAMENTOS Y VALIDACIONES CIENTIFICAS
+
+\----------------------------------------------------------------------
+
+
+
+\- Estacionariedad (Test ADF): 
+
+&#x20; Todas las variables objetivo (Q1, Q2, Q3) de los tres activos fueron 
+
+&#x20; validadas mediante la prueba Aumentada de Dickey-Fuller (ADF) en 
+
+&#x20; src/features/targets.py. Se garantizo estadisticamente la ausencia 
+
+&#x20; de raices unitarias (p-value = 0.0000 < 0.05) para asegurar un 
+
+&#x20; entrenamiento convergente y estable en modelos de Machine Learning.
+
+
+
+\- Mitigacion de Data Leakage:
+
+&#x20; Se implemento un riguroso test posicional unitario en 
+
+&#x20; tests/test\_leakage.py empleando indexacion entera (.iloc). Este test 
+
+&#x20; verifica de forma automatizada en el CI/CD que el lag\_1 en el periodo 
+
+&#x20; actual t sea exactamente igual al retorno original en t-1, garantizando 
+
+&#x20; que los algoritmos no consuman informacion del futuro al entrenarse.
+
+
+
+
+
+\----------------------------------------------------------------------
+
+3\. INSTALACION Y REQUISITOS DE EJECUCION
+
+\----------------------------------------------------------------------
+
+
+
+El entorno utiliza 'uv' como gestor avanzado de dependencias para 
+
+asegurar la reproducibilidad del entorno virtual.
+
+
+
+1\. Instalar y Sincronizar Dependencias del Proyecto:
+
+&#x20;  .\\uv sync
+
+
+
+2\. Ejecutar la Suite Completa de Pruebas Unitarias de Validacion:
+
+&#x20;  .\\uv run pytest
+
+
+
+3\. Compilar y Desplegar todo el Pipeline de Datos y Features:
+
+&#x20;  make features
+
+
+
+4\. Lanzar el Dashboard Interactivo de Analisis Exploratorio (EDA):
+
+&#x20;  make eda
+
+
+
+======================================================================
+
+&#x20;                 FIN DEL ARCHIVO DE CONFIGURACION
+
+======================================================================
+
