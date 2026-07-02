@@ -6,23 +6,23 @@ PIPELINE PREDICTIVO DE MACHINE LEARNING PARA RENTA FIJA (US TREASURIES)
 
 
 
-Este repositorio contiene una implementacion profesional, modular y 
+Este repositorio contiene una implementacion profesional, modular y
 
-automatizada de un pipeline de Machine Learning orientado a series de 
+automatizada de un pipeline de Machine Learning orientado a series de
 
-tiempo financieras. El objetivo principal es predecir los retornos 
+tiempo financieras. El objetivo principal es predecir los retornos
 
-futuros en multiples horizontes temporales utilizando activos de renta 
+futuros en multiples horizontes temporales utilizando activos de renta
 
 fixa (ETFs de bonos del tesoro de EE. UU.: SHY, IEF, TLT).
 
 
 
-El proyecto gestiona de extremo a extremo la ingesta de datos, el 
+El proyecto gestiona de extremo a extremo la ingesta de datos, el
 
-control de calidad, el analisis econometrico de estacionariedad, la 
+control de calidad, el analisis econometrico de estacionariedad, la
 
-ingenieria de variables sin sesgo temporal (anti data-leakage) y la 
+ingenieria de variables sin sesgo temporal (anti data-leakage) y la
 
 visualizacion interactiva para el analisis exploratorio de datos.
 
@@ -32,13 +32,11 @@ visualizacion interactiva para el analisis exploratorio de datos.
 
 \----------------------------------------------------------------------
 
-1\. ESTRUCTURA DE ENTREGABLES EN EL REPOSITORIO (SEMANAS 1 - 5)
-
 \----------------------------------------------------------------------
 
 
 
-El repositorio se encuentra estructurado bajo los siguientes modulos de 
+El repositorio se encuentra estructurado bajo los siguientes modulos de
 
 codigo de produccion e informes tecnicos institucionales:
 
@@ -46,7 +44,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- src/data/download.py
 
-&#x20; Módulo de ingesta automatizada. Descarga precios historicos de cierre 
+&#x20; Módulo de ingesta automatizada. Descarga precios historicos de cierre
 
 &#x20; ajustados directos desde la API de Yahoo Finance.
 
@@ -54,7 +52,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- src/data/clean.py
 
-&#x20; Módulo de preprocesamiento. Sincroniza las fechas del panel, maneja 
+&#x20; Módulo de preprocesamiento. Sincroniza las fechas del panel, maneja
 
 &#x20; dias feriados del mercado y ejecuta la imputacion de valores nulos.
 
@@ -62,7 +60,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- src/features/returns.py
 
-&#x20; Módulo de transformacion. Convierte las series de precios continuas 
+&#x20; Módulo de transformacion. Convierte las series de precios continuas
 
 &#x20; en retornos logaritmicos semanales estabilizados.
 
@@ -70,7 +68,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- src/features/targets.py
 
-&#x20; Módulo de variables objetivo. Construye los targets predictivos a 
+&#x20; Módulo de variables objetivo. Construye los targets predictivos a
 
 &#x20; futuro para los horizontes Q1 (1 semana), Q2 (2 semanas) y Q3 (4 semanas).
 
@@ -78,7 +76,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- src/features/build\_features.py
 
-&#x20; Módulo de ingenieria de variables. Computa rezagos historicos (lags 
+&#x20; Módulo de ingenieria de variables. Computa rezagos historicos (lags
 
 &#x20; 1, 2 y 3) para cada ETF y congela la matriz final para el modelo.
 
@@ -86,7 +84,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- dashboard/app.py
 
-&#x20; Aplicacion web interactiva desarrollada en Streamlit. Provee el 
+&#x20; Aplicacion web interactiva desarrollada en Streamlit. Provee el
 
 &#x20; Analisis Exploratorio de Datos (EDA) en 5 secciones completas.
 
@@ -124,15 +122,15 @@ codigo de produccion e informes tecnicos institucionales:
 
 
 
-\- Estacionariedad (Test ADF): 
+\- Estacionariedad (Test ADF):
 
-&#x20; Todas las variables objetivo (Q1, Q2, Q3) de los tres activos fueron 
+&#x20; Todas las variables objetivo (Q1, Q2, Q3) de los tres activos fueron
 
-&#x20; validadas mediante la prueba Aumentada de Dickey-Fuller (ADF) en 
+&#x20; validadas mediante la prueba Aumentada de Dickey-Fuller (ADF) en
 
-&#x20; src/features/targets.py. Se garantizo estadisticamente la ausencia 
+&#x20; src/features/targets.py. Se garantizo estadisticamente la ausencia
 
-&#x20; de raices unitarias (p-value = 0.0000 < 0.05) para asegurar un 
+&#x20; de raices unitarias (p-value = 0.0000 < 0.05) para asegurar un
 
 &#x20; entrenamiento convergente y estable en modelos de Machine Learning.
 
@@ -140,13 +138,13 @@ codigo de produccion e informes tecnicos institucionales:
 
 \- Mitigacion de Data Leakage:
 
-&#x20; Se implemento un riguroso test posicional unitario en 
+&#x20; Se implemento un riguroso test posicional unitario en
 
-&#x20; tests/test\_leakage.py empleando indexacion entera (.iloc). Este test 
+&#x20; tests/test\_leakage.py empleando indexacion entera (.iloc). Este test
 
-&#x20; verifica de forma automatizada en el CI/CD que el lag\_1 en el periodo 
+&#x20; verifica de forma automatizada en el CI/CD que el lag\_1 en el periodo
 
-&#x20; actual t sea exactamente igual al retorno original en t-1, garantizando 
+&#x20; actual t sea exactamente igual al retorno original en t-1, garantizando
 
 &#x20; que los algoritmos no consuman informacion del futuro al entrenarse.
 
@@ -162,7 +160,7 @@ codigo de produccion e informes tecnicos institucionales:
 
 
 
-El entorno utiliza 'uv' como gestor avanzado de dependencias para 
+El entorno utiliza 'uv' como gestor avanzado de dependencias para
 
 asegurar la reproducibilidad del entorno virtual.
 
@@ -191,10 +189,4 @@ asegurar la reproducibilidad del entorno virtual.
 &#x20;  make eda
 
 
-
-======================================================================
-
-&#x20;                 FIN DEL ARCHIVO DE CONFIGURACION
-
-======================================================================
 
