@@ -1,14 +1,21 @@
-.PHONY: install lint test eda
+.PHONY: install format lint test download clean eda all
 
 install:
 	.\uv sync
 
-lint:
-	.\uv run ruff check src
-	.\uv run ruff format src --check
+format:
+	.\uv run ruff format src/
 
-test:
-	$env:PYTHONPATH = "src"; .\uv run pytest
+lint:
+	.\uv run ruff check src/
+
+download:
+	.\uv run python src/data/download.py
+
+clean:
+	.\uv run python src/data/clean.py
 
 eda:
-	$env:PYTHONPATH = "src"; .\uv run streamlit run dashboard/app.py
+	.\uv run python src/visualization/eda.py
+
+all: download clean eda
