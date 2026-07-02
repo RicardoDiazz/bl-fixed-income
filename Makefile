@@ -1,4 +1,4 @@
-.PHONY: install format lint test download clean eda equilibrium views all
+.PHONY: install format lint test download clean features eda all
 
 install:
 	.\uv sync
@@ -9,19 +9,21 @@ format:
 lint:
 	.\uv run ruff check src/
 
+test:
+	.\uv run pytest
+
 download:
 	.\uv run python src/data/download.py
 
 clean:
 	.\uv run python src/data/clean.py
 
+features:
+	.\uv run python src/features/returns.py
+	.\uv run python src/features/targets.py
+	.\uv run python src/features/build_features.py
+
 eda:
-	.\uv run python src/visualization/eda.py
+	.\uv run python -m streamlit run dashboard/app.py
 
-equilibrium:
-	.\uv run python src/models/equilibrium.py
-
-views:
-	.\uv run python src/models/views.py
-
-all: download clean eda equilibrium views
+all: install download clean features test
