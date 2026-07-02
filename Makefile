@@ -1,4 +1,4 @@
-.PHONY: install format lint test download clean eda all
+.PHONY: install format lint test download clean eda equilibrium all
 
 install:
 	.\uv sync
@@ -18,4 +18,7 @@ clean:
 eda:
 	.\uv run python src/visualization/eda.py
 
-all: download clean eda
+equilibrium:
+	.\uv run python src/models/equilibrium.py
+
+all: download clean eda equilibrium
