@@ -1,32 +1,46 @@
-\# Decisiones Técnicas y de Arquitectura de Datos - Semana 2
+\# Reporte de Decisiones de Datos
 
 
 
-Este documento detalla las decisiones de diseño e ingeniería de software implementadas para el pipeline de extracción y procesamiento de datos del modelo Black-Litterman enfocado en renta fija (ETFs de Tesoros: SHY, IEF, TLT).
+Este documento describe la procedencia, estructura y transformaciones aplicadas al set de datos del proyecto predictivo de renta fija.
 
 
 
-\## 1. Frecuencia de los Datos (Muestreo Semanal)
+\## 1. Fuentes de Información y Activos Seleccionados
 
-\* \*\*Decisión:\*\* Los datos diarios extraídos de Yahoo Finance se consolidaron a una frecuencia \*\*semanal (`W`)\*\*, tomando el último precio de cierre ajustado registrado en cada período.
+Se seleccionaron tres ETFs de la familia de Tesoros de EE. UU. administrados por iShares para mapear tres tramos clave de la curva de rendimientos:
 
-\* \*\*Justificación Financiera:\*\* El ruido de alta frecuencia (diario) en el mercado de renta fija puede distorsionar las estimaciones de la matriz de covarianza y los retornos implícitos del equilibrio de Black-Litterman. La frecuencia semanal suaviza las anomalías de liquidez de corto plazo y se alinea mejor con los horizontes típicos de rebalanceo de portafolios institucionales.
+\- \*\*SHY (Short-Term):\*\* iShares 1-3 Year Treasury Bond ETF. Representa el tramo corto de la curva, altamente influenciado por las decisiones de tasas de interés de la Reserva Federal.
 
+\- \*\*IEF (Intermediate-Term):\*\* iShares 7-10 Year Treasury Bond ETF. Representa el tramo medio de la curva, el cual captura expectativas de inflación y crecimiento económico a mediano plazo.
 
-
-\## 2. Tratamiento de Datos Faltantes y Limpieza
-
-\* \*\*Cálculo de Retornos:\*\* Se calcularon retornos porcentuales simples mediante el método `.pct\_change()`, idóneos para la formulación clásica de optimización de portafolios de Markowitz y Black-Litterman.
-
-\* \*\*Manejo de NaNs:\*\* La primera fila resultante del cálculo de retornos (que carece de un período previo de comparación) fue eliminada de forma estricta usando `.dropna()`. No se aplicaron métodos de imputación (como \*forward fill\* o \*backward fill\*) para evitar la inyección de autocorrelación artificial o sesgos de supervivencia en el histórico de los ETFs.
+\- \*\*TLT (Long-Term):\*\* iShares 20+ Year Treasury Bond ETF. Representa el tramo largo de la curva, altamente sensible al riesgo de duración y primas por plazo a largo plazo.
 
 
 
-\## 3. Formato de Almacenamiento (Parquet vs. CSV)
+La descarga de datos históricos se automatiza en `src/data/download.py` consumiendo los precios de cierre ajustados (`Adj Close`) a través de la API oficial de `yfinance`.
 
-\* \*\*Decisión:\*\* Los datos procesados se exportaron en formato \*\*Parquet\*\* (`panel\_semanal.parquet`) utilizando el motor `pyarrow`.
 
-\* \*\*Justificación Técnica:\*\* \* \*\*Esquema e Integridad:\*\* A diferencia de un archivo CSV, Parquet preserva de forma nativa los tipos de datos (como el índice de tiempo `DatetimeIndex` y los flotantes de alta precisión).
 
-&#x20; \* \*\*Rendimiento:\*\* Utiliza almacenamiento columnar y compresión eficiente, optimizando los tiempos de lectura y carga en memoria cuando el script de optimización matemática invoque el dataset.
+\## 2. Justificación de la Frecuencia Semanal
+
+Se optó por una agregación y muestreo de frecuencia \*\*semanal (Weekly)\*\* debido a las siguientes razones metodológicas:
+
+\- \*\*Reducción de Ruido:\*\* Los datos diarios de renta fija suelen incorporar ruido de microestructura de mercado (alta frecuencia, spreads de liquidez) que no aporta valor a las proyecciones macroeconómicas.
+
+\- \*\*Estabilidad de Señal:\*\* Los movimientos en las tasas de interés y las primas de riesgo soberano responden a fundamentos que se consolidan de forma más limpia en horizontes semanales.
+
+\- \*\*Evitar Overfitting:\*\* Disminuye el volumen de observaciones espurias, permitiendo que los modelos de Machine Learning generalicen mejor en horizontes futuros de mediano plazo (1 a 4 semanas).
+
+
+
+\## 3. Tratamiento de Datos Faltantes (Nulos) y Limpieza
+
+El proceso automatizado en `src/data/clean.py` implementa las siguientes reglas secuenciales de calidad:
+
+1\. \*\*Alineación Temporal:\*\* Se remueven fechas que no cuenten con registros síncronos en los tres activos debido a días feriados específicos de los mercados.
+
+2\. \*\*Imputación Directa:\*\* En caso de nulos transitorios, se aplica llenado hacia adelante (`ffill`) para mantener la continuidad del precio teórico del activo reflectante de la última información disponible.
+
+3\. \*\*Consolidación de Parquet:\*\* El panel final limpio se exporta en formato indexado `data/processed/panel\_semanal.parquet` asegurando compresión y tipos de datos estrictos para el modelamiento.
 
