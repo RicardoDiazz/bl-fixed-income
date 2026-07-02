@@ -1,0 +1,11 @@
+﻿[market]
+tickers = ["SHY", "IEF", "TLT"]
+period = "5y"
+risk_free_rate = 0.035
+risk_aversion = 2.5
+tau = 0.05
+
+[views]
+P = [[0, 0, 1]]
+Q = [0.05]
+Omega = [[0.00001]]
