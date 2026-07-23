@@ -190,3 +190,15 @@ asegurar la reproducibilidad del entorno virtual.
 
 
 
+\- Validacion Cruzada y Protocolo Rolling (S6):
+
+&#x20; Se implemento y congelo el protocolo de validacion temporal Expanding Window en
+
+&#x20; src/models/rolling.py junto con el modulo de metricas cuantitativas (RMSE, MAE, MAPE)
+
+&#x20; en src/models/metrics.py. Se garantizo mediante pruebas unitarias en
+
+&#x20; tests/test\_rolling.py la correcta expansion del conjunto de entrenamiento sin
+
+&#x20; traslape temporal ni fugas de informacion fuera de muestra (out-of-sample).
+
