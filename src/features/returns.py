@@ -1,4 +1,5 @@
 import os
+
 import numpy as np
 import pandas as pd
 
@@ -6,7 +7,9 @@ import pandas as pd
 def compute_log_returns():
     """Calcula los retornos logarítmicos a partir de los precios limpios."""
     input_path = "data/processed/panel_semanal.parquet"
-    output_path = "data/processed/panel_semanal.parquet"  # Sobrescribimos agregando las columnas
+    output_path = (
+        "data/processed/panel_semanal.parquet"  # Sobrescribimos agregando las columnas
+    )
 
     if not os.path.exists(input_path):
         raise FileNotFoundError(f"No se encontró el archivo en {input_path}")

@@ -1,4 +1,5 @@
 import os
+
 import numpy as np
 import pandas as pd
 
@@ -39,7 +40,7 @@ def build_lagged_features():
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     df.to_parquet(output_path, index=True)
 
-    print(f"\nMatriz de variables completada exitosamente.")
+    print("\nMatriz de variables completada exitosamente.")
     print(f"Dataset congelado guardado en: {output_path}\n")
 
 

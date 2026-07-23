@@ -202,3 +202,9 @@ asegurar la reproducibilidad del entorno virtual.
 
 &#x20; traslape temporal ni fugas de informacion fuera de muestra (out-of-sample).
 
+
+
+\- Modelos Baseline de Prediccion de Cuantiles (S7):
+
+&#x20; Se implementaron los pipelines basales para la prediccion out-of-sample de los cuantiles de retorno (SHY, IEF, TLT). Se integro el modelo Ridge Regression en src/models/ridge.py y src/models/generate\_ridge\_forecasts.py, junto con una arquitectura de red neuronal recurrente LSTM en PyTorch (src/models/lstm.py y src/models/generate\_lstm\_forecasts.py). Se validaron mediante pruebas unitarias en tests/test\_lstm.py y se generaron las matrices alineadas de pronosticos en data/processed/forecasts\_ridge.parquet y data/processed/forecasts\_lstm.parquet.
+

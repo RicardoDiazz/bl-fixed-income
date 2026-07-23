@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 
 
@@ -29,7 +30,9 @@ def test_no_data_leakage():
 
                 # Localizamos su posición numérica entera en el DataFrame ordenado
                 pos_presente = df.index.get_loc(fecha_presente)
-                pos_pasado = pos_presente - 1  # La semana inmediatamente anterior en el tiempo
+                pos_pasado = (
+                    pos_presente - 1
+                )  # La semana inmediatamente anterior en el tiempo
 
                 # Obtenemos los valores correspondientes
                 val_original_pasado = df.iloc[pos_pasado][ret_col]

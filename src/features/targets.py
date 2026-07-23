@@ -1,4 +1,5 @@
 import os
+
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller
@@ -19,10 +20,10 @@ def build_targets_and_analyze():
     print("--- Construyendo Targets Predictivos ---")
 
     markdown_report = "# Análisis Económico y Estacionariedad (Test ADF)\n\n"
+    markdown_report += "Este documento presenta la validación formal de las variables "
     markdown_report += (
-        "Este documento presenta la validación formal de las variables "
+        "objetivo (targets) para evitar problemas de raíces unitarias.\n\n"
     )
-    markdown_report += "objetivo (targets) para evitar problemas de raíces unitarias.\n\n"
 
     # Horizontes: Q1 (1 sem), Q2 (2 sem), Q3 (4 sem)
     horizons = {"Q1": -1, "Q2": -2, "Q3": -4}
@@ -61,7 +62,9 @@ def build_targets_and_analyze():
                         f"Target {target_name} -> p-value: {p_value:.4f} | {status_str}"
                     )
 
-                    markdown_report += f"### Target {label} ({abs(shift_val)} semanas adelante)\n"
+                    markdown_report += (
+                        f"### Target {label} ({abs(shift_val)} semanas adelante)\n"
+                    )
                     markdown_report += f"- **Nombre de variable:** `{target_name}`\n"
                     markdown_report += f"- **Estadístico ADF:** `{adf_stat:.4f}`\n"
                     markdown_report += f"- **p-value:** `{p_value:.4e}`\n"
