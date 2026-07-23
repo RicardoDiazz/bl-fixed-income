@@ -77,3 +77,38 @@ def run_exploratory_data_analysis():
 
 if __name__ == "__main__":
     run_exploratory_data_analysis()
+
+# ==============================================================================
+# SECCIÓN SEMANA 9: PRONÓSTICOS Y EVALUACIÓN DE MODELOS (OUT-OF-SAMPLE)
+# ==============================================================================
+st.markdown("---")
+st.markdown("## 📈 Pronósticos y Evaluación de Modelos OOS")
+st.markdown("Comparativa de rendimiento en la ventana de validación rodante para cuantiles (Q1, Q2, Q3).")
+
+try:
+    df_metrics = pd.read_csv("data/processed/comparison_baselines.csv")
+    
+    tab1, tab2 = st.tabs(["📊 Tabla de Métricas (RMSE/MAE)", "💡 Diagnóstico del Modelo"])
+    
+    with tab1:
+        st.write("### Resultados Comparativos")
+        st.dataframe(
+            df_metrics.style.highlight_min(subset=['RMSE', 'MAE'], color='lightgreen', axis=0),
+            use_container_width=True
+        )
+        
+    with tab2:
+        st.write("### Lectura Económica")
+        st.info(
+            "**Superioridad del GBM:** El modelo de Gradient Boosting superó ampliamente "
+            "al Transformer en activos de larga duración (TLT, IEF), logrando un RMSE significativamente "
+            "menor (ej. 0.025 vs 0.421 en TLT_Q1)."
+        )
+        st.warning(
+            "**Diagnóstico Deep Learning:** Los altos márgenes de error en el Transformer "
+            "sugieren problemas de overfitting por el tamaño de la ventana OOS o inestabilidad en los gradientes. "
+            "Requiere ajuste de hiperparámetros (Dropout, Weight Decay)."
+        )
+
+except FileNotFoundError:
+    st.error("⚠️ No se encontró el archivo 'comparison_baselines.csv'. Asegúrate de ejecutar el pipeline de evaluación de la S9.")
