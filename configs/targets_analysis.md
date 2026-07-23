@@ -5,43 +5,43 @@ Este documento presenta la validación formal de las variables objetivo (targets
 ## Activo: SHY
 ### Target Q1 (1 semanas adelante)
 - **Nombre de variable:** `SHY_Q1`
-- **Estadístico ADF:** `-12.8789`
-- **p-value:** `4.7045e-24`
+- **Estadístico ADF:** `-25.3860`
+- **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q2 (2 semanas adelante)
 - **Nombre de variable:** `SHY_Q2`
-- **Estadístico ADF:** `-7.8183`
-- **p-value:** `6.7759e-12`
+- **Estadístico ADF:** `-25.4123`
+- **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q3 (4 semanas adelante)
 - **Nombre de variable:** `SHY_Q3`
-- **Estadístico ADF:** `-12.8268`
-- **p-value:** `5.9891e-24`
+- **Estadístico ADF:** `-25.2526`
+- **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ## Activo: IEF
 ### Target Q1 (1 semanas adelante)
 - **Nombre de variable:** `IEF_Q1`
-- **Estadístico ADF:** `-26.5308`
+- **Estadístico ADF:** `-26.5846`
 - **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q2 (2 semanas adelante)
 - **Nombre de variable:** `IEF_Q2`
-- **Estadístico ADF:** `-26.6006`
+- **Estadístico ADF:** `-26.6545`
 - **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q3 (4 semanas adelante)
 - **Nombre de variable:** `IEF_Q3`
-- **Estadístico ADF:** `-26.4184`
+- **Estadístico ADF:** `-26.4724`
 - **p-value:** `0.0000e+00`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
@@ -49,22 +49,22 @@ Este documento presenta la validación formal de las variables objetivo (targets
 ## Activo: TLT
 ### Target Q1 (1 semanas adelante)
 - **Nombre de variable:** `TLT_Q1`
-- **Estadístico ADF:** `-5.8167`
-- **p-value:** `4.2749e-07`
+- **Estadístico ADF:** `-5.8127`
+- **p-value:** `4.3630e-07`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q2 (2 semanas adelante)
 - **Nombre de variable:** `TLT_Q2`
-- **Estadístico ADF:** `-5.8412`
-- **p-value:** `3.7737e-07`
+- **Estadístico ADF:** `-5.8371`
+- **p-value:** `3.8542e-07`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
 ### Target Q3 (4 semanas adelante)
 - **Nombre de variable:** `TLT_Q3`
-- **Estadístico ADF:** `-5.8632`
-- **p-value:** `3.3719e-07`
+- **Estadístico ADF:** `-5.8595`
+- **p-value:** `3.4368e-07`
 - **Resultado:** *Estacionaria (Rechaza H0)*
 - **Valores Críticos:** 1%: `-3.45`, 5%: `-2.87`
 
