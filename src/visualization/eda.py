@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import streamlit as st
 
 # Configuración estética profesional para los gráficos
 sns.set_theme(style="whitegrid")
@@ -83,20 +84,26 @@ if __name__ == "__main__":
 # ==============================================================================
 st.markdown("---")
 st.markdown("## 📈 Pronósticos y Evaluación de Modelos OOS")
-st.markdown("Comparativa de rendimiento en la ventana de validación rodante para cuantiles (Q1, Q2, Q3).")
+st.markdown(
+    "Comparativa de rendimiento en la ventana de validación rodante para cuantiles (Q1, Q2, Q3)."
+)
 
 try:
     df_metrics = pd.read_csv("data/processed/comparison_baselines.csv")
-    
-    tab1, tab2 = st.tabs(["📊 Tabla de Métricas (RMSE/MAE)", "💡 Diagnóstico del Modelo"])
-    
+
+    tab1, tab2 = st.tabs(
+        ["📊 Tabla de Métricas (RMSE/MAE)", "💡 Diagnóstico del Modelo"]
+    )
+
     with tab1:
         st.write("### Resultados Comparativos")
         st.dataframe(
-            df_metrics.style.highlight_min(subset=['RMSE', 'MAE'], color='lightgreen', axis=0),
-            use_container_width=True
+            df_metrics.style.highlight_min(
+                subset=["RMSE", "MAE"], color="lightgreen", axis=0
+            ),
+            use_container_width=True,
         )
-        
+
     with tab2:
         st.write("### Lectura Económica")
         st.info(
@@ -111,4 +118,6 @@ try:
         )
 
 except FileNotFoundError:
-    st.error("⚠️ No se encontró el archivo 'comparison_baselines.csv'. Asegúrate de ejecutar el pipeline de evaluación de la S9.")
+    st.error(
+        "⚠️ No se encontró el archivo 'comparison_baselines.csv'. Asegúrate de ejecutar el pipeline de evaluación de la S9."
+    )

@@ -4,7 +4,7 @@ import yfinance as yf
 
 def download_fixed_income_data(tickers=None, period="5y"):
     if tickers is None:
-        tickers = ["SHY", "IEF", "TLT"]    
+        tickers = ["SHY", "IEF", "TLT"]
     """
     Descarga datos historicos de ETFs de bonos del tesoro y calcula rendimientos.
     """

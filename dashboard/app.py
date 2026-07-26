@@ -14,9 +14,9 @@ data_path = "data/processed/features.parquet"
 
 if not os.path.exists(data_path):
     st.error(
-            f"No se encontró el archivo de características en {data_path}. "
-            "Corre 'make features' primero."
-        )
+        f"No se encontró el archivo de características en {data_path}. "
+        "Corre 'make features' primero."
+    )
     st.stop()
 
 df = pd.read_parquet(data_path)
