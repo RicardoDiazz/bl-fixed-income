@@ -1,8 +1,6 @@
-import tomllib
-
 import matplotlib.pyplot as plt
 import numpy as np
-
+import tomllib
 from bl_fixed_income.allocator import maximize_sharpe_ratio
 from bl_fixed_income.analytics import (
     black_litterman_master_formula,
