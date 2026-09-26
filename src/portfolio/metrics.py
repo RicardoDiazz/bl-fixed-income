@@ -78,7 +78,7 @@ def generate_full_and_subperiod_metrics():
     df_full = pd.DataFrame(full_metrics).set_index("Portfolio")
     df_full.to_csv("data/results/metrics_full.csv")
 
-    # 2. Sub-periodos (Uso de pd.chunk/split por indices)
+    # 2. Sub-periodos
     n_splits = 6
     split_size = int(np.ceil(len(df_returns) / n_splits))
     sub_metrics = []
@@ -98,7 +98,7 @@ def generate_full_and_subperiod_metrics():
     df_sub = pd.DataFrame(sub_metrics)
     df_sub.to_csv("data/results/metrics_subperiods.csv", index=False)
 
-    print("Archivos CSV generados con exito.")
+    print("Archivos CSV de metricas generados con exito.")
 
 
 if __name__ == "__main__":
