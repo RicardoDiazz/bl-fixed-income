@@ -1,0 +1,9 @@
+Model_A,Model_B,DM_Statistic,p_value
+EW_1N,EW_1N,0.0,1.0
+Market_Equilibrium,EW_1N,17.320253682145434,0.0
+BL_ML_Q1,EW_1N,16.44047519761667,0.0
+BL_ML_Q2,EW_1N,0.0,1.0
+BL_ML_Q3,EW_1N,0.0,1.0
+Min_Variance,EW_1N,0.0,1.0
+Max_Sharpe_Pure,EW_1N,0.0,1.0
+BL_Combined,EW_1N,0.0,1.0
