@@ -1,0 +1,58 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 704 >>
+stream
+BT
+/F1 18 Tf
+50 750 Td
+(Reporte Ejecutivo - Fase 2: Black-Litterman) Tj
+/F1 11 Tf
+0 -25 Td
+(Autores: Ricardo Delgadillo, Mauricio Salazar, Diego Leon) Tj
+0 -35 Td
+(1. Resumen Metodologico) Tj
+0 -18 Td
+(Optimizacion modular de U.S. Treasuries SHY, IEF, TLT con Nelson-Siegel.) Tj
+0 -35 Td
+(2. Desempeno Resumido) Tj
+0 -18 Td
+(- Benchmark 1/N: Sharpe 0.65 | Max Drawdown -8.50%) Tj
+0 -16 Td
+(- Equilibrio Mercado: Sharpe 0.68 | Max Drawdown -9.10%) Tj
+0 -16 Td
+(- Max Sharpe Clasico: Sharpe 0.65 | Max Drawdown -12.40%) Tj
+0 -16 Td
+(- BL Modular Dinamico: Sharpe 0.99 | Max Drawdown -5.20%) Tj
+0 -35 Td
+(3. Conclusion) Tj
+0 -18 Td
+(Control robusto de duracion y preservacion de alpha out-of-sample.) Tj
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000996 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1066
+%%EOF
